@@ -40,4 +40,5 @@ exports.addParticips = async(eventId, data) => {
     } catch (err) {
       throw new Error("Error fetching the event");
     }
-}
+} 
+
