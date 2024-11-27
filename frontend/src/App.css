@@ -1,3 +1,29 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+.leftm{
+  margin-left: -70px;
+  transition: ease-in-out .3s;
+  animation: bounceOut 0.5s ease-in-out;
+}
+.rightm {
+  transition: ease-in-out 0.3s;
+  animation: bounceIn 0.5s ease-in-out;
+}
+
+@keyframes bounceIn {
+  50% {
+    transform: translateX(-90px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+@keyframes bounceOut {
+  50% {
+    transform: translateX(90px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
