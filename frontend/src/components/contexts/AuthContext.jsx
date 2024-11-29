@@ -5,7 +5,7 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
 
   const login = async ({ email, password }) => {
     try {
@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
         password,
       });
       if (res.data && res.data.token) {
-        localStorage.setItem("token", res.data.token)
+        localStorage.setItem("token", res.data.token);
         setUser(res.data.user);
         return true;
       } else {
@@ -31,21 +31,11 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const checkUser = async () => {
-      const token = localStorage.getItem("token");
-      if (token) {
-        try {
-          const res = await axios.get("http://localhost:3001/api/user/me", {
-            headers: { Authorization: `Bearer ${token}` },
-          });
-          setUser(res.data.user);
-        } catch {
-          logout()
-        }
-      }
-      setLoading(false);
-    };
-    checkUser();
+    const token = localStorage.getItem("token");
+    if (token) {
+      setUser({});
+    }
+    setLoading(false);
   }, []);
 
   const value = {
