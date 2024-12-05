@@ -3,6 +3,7 @@ import "./App.css";
 import Login from "./components/auth/Login";
 import PrivateRoute from "./components/privateRoute/PrivateRoute";
 import Home from "./components/pages/Home";
+import Event from "./components/events/Event";
 
 function App() {
   return (
@@ -14,7 +15,15 @@ function App() {
             path="/home"
             element={
               <PrivateRoute>
-                <Home/>
+                <Home />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/event/:id"
+            element={
+              <PrivateRoute>
+                <Event />
               </PrivateRoute>
             }
           />

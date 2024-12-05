@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
-
+import {jwtDecode} from 'jwt-decode'
 export default function Login() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -28,10 +28,14 @@ export default function Login() {
         }
         try{
             const success = await login({email, password})
-            if(success){
-                setTimeout(()=>{
-                    navigate('/home')
-                },1000)
+            const token = localStorage.getItem('token')
+            const decode = jwtDecode(token)
+            console.log('hello', decode);
+            if (decode.role === "organizer"){
+                navigate("/home");
+
+            }else if(decode.role === "user"){
+                navigate("/user");
             }
         }catch(err){
             setError("Invalid email or password. Please try again.");
@@ -40,9 +44,9 @@ export default function Login() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-200 via-orange-500 to-red-500 p-4">
       <div className="relative w-full max-w-sm">
-        <div className="absolute -top-24 left-1/2 transform -translate-x-1/2 w-44">
+        {/* <div className="absolute -top-24 left-1/2 transform -translate-x-1/2 w-44">
           <img src="/png-b.png" alt="Topimage" className="" />
-        </div>
+        </div> */}
 
         <div className="bg-white rounded-lg shadow-lg p-8 ">
           <div className="flex justify-center mb-6">

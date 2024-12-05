@@ -1,10 +1,17 @@
-import React, { useContext } from "react";
+import { jwtDecode } from "jwt-decode";
+import React from "react";
 import { Navigate } from "react-router-dom";
-import AuthContext from "../contexts/AuthContext";
 
 export default function PrivateRoute({ children }) {
-  const { user, loading } = useContext(AuthContext);
+  const token = localStorage.getItem("token");
 
-  if (loading) return <div>Loading...</div>;
-  return user ? children : <Navigate to="/" />;
+  if (token) {
+    const decoded = jwtDecode(token);
+    if (decoded.role !== "organizer") {
+      console.error("Restricted page");
+      return <Navigate to="/user" />
+    }
+    return children
+  }
+  return <Navigate to="/" />;
 }
